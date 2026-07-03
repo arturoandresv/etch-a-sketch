@@ -21,3 +21,13 @@ function createSquareGrid(heigth, width) {
 }
 
 createSquareGrid(heigth, width)
+
+const squares = document.querySelectorAll(".square");
+
+squares.forEach(square => 
+    square.addEventListener("mouseenter",() => 
+        square.style.backgroundColor = "red"));
+    
+squares.forEach(square => 
+    square.addEventListener("mouseleave",() => 
+        setTimeout(() => square.style.backgroundColor = "", 2000)));
