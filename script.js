@@ -46,14 +46,14 @@ function addHoverEffect() {
 function regenerateGrid() {
     size = parseInt(prompt("Size of Grid:"))
     if (Number.isInteger(size) && size > 0) {
-        body.removeChild(container);
-        container = document.createElement("div")
-        body.appendChild(container)
-        body.removeChild(buttonSizeGrid)
-        body.appendChild(buttonSizeGrid)
-        createSquareGrid(size)
-        addHoverEffect()
-    } else {
-        alert("Digit a valid number")
-    }
+        if (size < 100) {
+            body.removeChild(container);
+            container = document.createElement("div")
+            body.appendChild(container)
+            body.removeChild(buttonSizeGrid)
+            body.appendChild(buttonSizeGrid)
+            createSquareGrid(size)
+            addHoverEffect()
+        } else alert("Number must be maximum of 100")
+    } else alert("Digit a valid number")
 }
