@@ -31,12 +31,16 @@ function createSquareGrid(size) {
     }
 }
 
+function selectRandomColor() {
+    return Math.floor(Math.random()*256);
+}
+
 function addHoverEffect() {
     let squares = document.querySelectorAll(".square");
 
     squares.forEach(square =>
         square.addEventListener("mouseenter", () =>
-            square.style.backgroundColor = "red"));
+            square.style.backgroundColor = `rgb(${selectRandomColor()}, ${selectRandomColor()}, ${selectRandomColor()})`));--
 
     squares.forEach(square =>
         square.addEventListener("mouseleave", () =>
