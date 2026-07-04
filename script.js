@@ -1,4 +1,6 @@
 let size = 16
+let opacity = 100
+let opacityDecreases = true;
 
 let container = document.querySelector(".container");
 const body = document.querySelector("body");
@@ -35,12 +37,18 @@ function selectRandomColor() {
     return Math.floor(Math.random()*256);
 }
 
+function selectOpacity() {
+    if (opacity == 0) opacityDecreases = false;
+    if (opacity == 100) opacityDecreases = true;
+    return opacityDecreases ? --opacity : ++opacity
+}
+
 function addHoverEffect() {
     let squares = document.querySelectorAll(".square");
 
     squares.forEach(square =>
         square.addEventListener("mouseenter", () =>
-            square.style.backgroundColor = `rgb(${selectRandomColor()}, ${selectRandomColor()}, ${selectRandomColor()})`));--
+            square.style.background = `rgb(${selectRandomColor()} ${selectRandomColor()} ${selectRandomColor()} / ${selectOpacity()}%)`));
 
     squares.forEach(square =>
         square.addEventListener("mouseleave", () =>
