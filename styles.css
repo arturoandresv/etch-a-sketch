@@ -7,11 +7,14 @@ body {
     align-items: center;
     margin: 30px;
     gap: 30px;;
+    background-color: beige;
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    border: black solid 5px;
+    background-color: white;
 }
 
 .row {
@@ -21,14 +24,29 @@ body {
 .square {
     border: black solid 1px;
     padding: 25px;
+    background-color: white;
 }
 
-.button-sizegrid {
+.buttons {
     display: flex;
-    padding: 10px;
-    width: 100px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button {
+    display: flex;
+    width: 200px;
+    height: 50px;
     border-radius: 10px;
     font-size: 16px;
     font-weight: bold;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: black solid 3px;
+    background-color: ghostwhite;
+}
+
+.true-false {
+    background-color: rgb(255, 170, 170);
 }
