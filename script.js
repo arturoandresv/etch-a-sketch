@@ -98,9 +98,10 @@ function regenerateGrid() {
         if (size < 100) {
             body.removeChild(container);
             container = document.createElement("div")
+            container.classList.add("container")
             body.appendChild(container)
-            body.removeChild(buttonSizeGrid)
-            body.appendChild(buttonSizeGrid)
+            body.removeChild(divButtons)
+            body.appendChild(divButtons)
             createSquareGrid(size)
             addHoverEffect()
         } else alert("Number must be maximum of 100")
