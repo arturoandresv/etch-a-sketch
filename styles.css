@@ -13,8 +13,8 @@ body {
     flex-direction: column;
     border: black solid 5px;
     background-color: white;
-    width: 900px;
-    height: 900px;
+    width: 800px;
+    height: 800px;
 }
 
 .row {
