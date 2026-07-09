@@ -13,15 +13,19 @@ body {
     flex-direction: column;
     border: black solid 5px;
     background-color: white;
+    width: 900px;
+    height: 900px;
 }
 
 .row {
     display: flex;
+    flex: 1
 }
 
 .square {
+    display: flex;
+    flex: 1;
     border: black solid 1px;
-    padding: 25px;
     background-color: white;
 }
 
