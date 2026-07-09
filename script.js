@@ -1,8 +1,6 @@
 let size = 16;
-let opacity = 100;
-let opacityDecreases = true;
 let randomColor = false;
-let OpacityVariety = false;
+let ProgressiveOpacity = false;
 
 let container = document.querySelector(".container");
 const body = document.querySelector("body");
@@ -30,14 +28,14 @@ let statusRandomColor = document.createElement("span");
 statusRandomColor.textContent = "OFF";
 buttonRandomColor.appendChild(statusRandomColor);
 
-let buttonOpacityVariety = document.createElement("button");
-buttonOpacityVariety.classList.add("button");
-buttonOpacityVariety.classList.add("true-false");
-buttonOpacityVariety.textContent = "Opacity Variety";
-divButtons.appendChild(buttonOpacityVariety);
-let statusOpacityVariety = document.createElement("span");
-statusOpacityVariety.textContent = "OFF";
-buttonOpacityVariety.appendChild(statusOpacityVariety);
+let buttonProgressiveOpacity = document.createElement("button");
+buttonProgressiveOpacity.classList.add("button");
+buttonProgressiveOpacity.classList.add("true-false");
+buttonProgressiveOpacity.textContent = "Progressive Opacity";
+divButtons.appendChild(buttonProgressiveOpacity);
+let statusProgressiveOpacity = document.createElement("span");
+statusProgressiveOpacity.textContent = "OFF";
+buttonProgressiveOpacity.appendChild(statusProgressiveOpacity);
 
 buttonSizeGrid.addEventListener("click", () => regenerateGrid());
 
@@ -45,7 +43,7 @@ buttonClearGrid.addEventListener("click", () => clearGrid());
 
 buttonRandomColor.addEventListener("click", () => alternateRandomColor())
 
-buttonOpacityVariety.addEventListener("click", () => alternateOpacityVariety())
+buttonProgressiveOpacity.addEventListener("click", () => alternateProgressiveOpacity())
 
 createSquareGrid(size);
 addHoverEffect();
@@ -59,6 +57,7 @@ function createSquareGrid(size) {
         for (let j = 1; j <= size; j++) {
             const square = document.createElement("div")
             square.classList.add("square")
+            square.opacityValue = 0;
             row.appendChild(square)
         }
 
@@ -68,13 +67,14 @@ function createSquareGrid(size) {
 }
 
 function selectRandomColor() {
-    return Math.floor(Math.random()*256);
+    return Math.floor(Math.random() * 256);
 }
 
-function selectOpacity() {
-    if (opacity == 0) opacityDecreases = false;
-    if (opacity == 100) opacityDecreases = true;
-    return opacityDecreases ? --opacity : ++opacity
+function selectOpacity(square) {
+    if (ProgressiveOpacity) {
+        square.opacityValue = square.opacityValue + 10
+        return square.opacityValue
+    } else return 100;
 }
 
 function addHoverEffect() {
@@ -82,14 +82,9 @@ function addHoverEffect() {
 
     squares.forEach(square =>
         square.addEventListener("mouseenter", () => {
-            if(randomColor && OpacityVariety) square.style.background = `rgb(${selectRandomColor()} ${selectRandomColor()} ${selectRandomColor()} / ${selectOpacity()}%)`; 
-            else if (randomColor || OpacityVariety) {
-                if(randomColor) square.style.background = `rgb(${selectRandomColor()} ${selectRandomColor()} ${selectRandomColor()})`
-                if(OpacityVariety) square.style.background = `rgb(10 10 10 / ${selectOpacity()}%)`
-            } else square.style.background = "rgb(10 10 10)";
+            if (randomColor) square.style.background = `rgb(${selectRandomColor()} ${selectRandomColor()} ${selectRandomColor()} / ${selectOpacity(square)}%)`;
+            else square.style.background = `rgb(10 10 10 / ${selectOpacity(square)}%)`
         }));
-
-    //squares.forEach(square => square.addEventListener("mouseleave", () => setTimeout(() => square.style.backgroundColor = "", 2000)));
 }
 
 function regenerateGrid() {
@@ -110,12 +105,12 @@ function regenerateGrid() {
 
 function clearGrid() {
     let squares = document.querySelectorAll(".square");
-    
-    squares.forEach(square => square.style.background = "white")
+
+    squares.forEach(square => { square.style.background = "white"; square.opacityValue = 0 })
 }
 
 function alternateRandomColor() {
-    if(randomColor == false) {
+    if (randomColor == false) {
         randomColor = true;
         statusRandomColor.textContent = "ON";
         buttonRandomColor.style.background = "rgb(170, 255, 170)"
@@ -126,14 +121,17 @@ function alternateRandomColor() {
     }
 }
 
-function alternateOpacityVariety() {
-    if(OpacityVariety == false) {
-        OpacityVariety = true;
-        statusOpacityVariety.textContent = "ON";
-        buttonOpacityVariety.style.background = "rgb(170, 255, 170)"
+function alternateProgressiveOpacity() {
+    if (ProgressiveOpacity == false) {
+        ProgressiveOpacity = true;
+        statusProgressiveOpacity.textContent = "ON";
+        buttonProgressiveOpacity.style.background = "rgb(170, 255, 170)"
+        let squares = document.querySelectorAll(".square");
+
+        squares.forEach(square => square.opacityValue = 0)
     } else {
-        OpacityVariety = false;
-        statusOpacityVariety.textContent = "OFF";
-        buttonOpacityVariety.style.background = "rgb(255, 170, 170)"
+        ProgressiveOpacity = false;
+        statusProgressiveOpacity.textContent = "OFF";
+        buttonProgressiveOpacity.style.background = "rgb(255, 170, 170)"
     }
 }
